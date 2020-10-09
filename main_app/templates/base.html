@@ -12,7 +12,10 @@
          <nav>
             <ul>
             {% if user.is_authenticated %}
-               <li><a href="{%url 'logout'%}">Log Out</a></li>
+               <li><a href="{%url 'unit_index'%}">View Apartments</a></li>
+               <li><a href="{%url 'manager_index'%}">View Property Managers</a></li>
+               <li>My Profile</li>
+               <li><a href="{%url 'logout'%}?next=/">Log Out</a></li>
             {% else %}
                <li><a href="{%url 'register'%}">Register</a></li>
                <li><a href="{%url 'login'%}">Log In</a></li>
@@ -23,8 +26,8 @@
       <h1>{%block blah %}{% endblock %}</h1>
       {% block content %}
       {% endblock %}
-      <footer>
-
-      </footer>
+      <footer class="page-footer">
+         <div class="right">All Rights Reserved, &copy; {% now "Y" %} Honest Apartment Testimonies &nbsp;</div>
+       </footer>
    </body>
 </html>
