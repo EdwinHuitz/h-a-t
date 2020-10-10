@@ -10,19 +10,20 @@ from .models import *
 
 # view functions
 def home(request):
-   return render(request,'home.html')
+   unit = Unit.objects.all()
+   return render(request,'home.html',{'units':unit})
 
 def about(request):
    return render(request,'about.html')
-
+@login_required
 def unitIndex(request):
    unit = Unit.objects.all()
    return render(request,'units/index.html',{'units':unit})
-
+@login_required
 def managerIndex(request):
    manager = Manager.objects.all()
    return render(request,'managers/index.html',{'managers':manager})
-
+@login_required
 def memberIndex(request):
    member = Member.objects.all()
    return render(request,'members/details.html',{'members':member})
@@ -44,38 +45,39 @@ def register(request):
 
 # classes
 #! Units
-class unitCreate(CreateView):
+
+class unitCreate(LoginRequiredMixin,CreateView):
    model=Unit
    fields=['name','address','contact','manager']
    template_name='units/create.html'
 
-class unitView(ListView):
+class unitView(LoginRequiredMixin,ListView):
    model=Unit
    template_name='units/index.html'
 
-class unitDetail(DetailView):
+class unitDetail(LoginRequiredMixin,DetailView):
    model=Unit
    template_name='units/details.html'
 
 #! Management
-class managerCreate(CreateView):
+class managerCreate(LoginRequiredMixin,CreateView):
    model=Manager
    fields='__all__'
    template_name='managers/create.html'
 
-class managerView(ListView):
+class managerView(LoginRequiredMixin,ListView):
    model=Manager
    template_name='managers/index.html'
 
-class managerDetail(DetailView):
+class managerDetail(LoginRequiredMixin,DetailView):
    model=Manager
    template_name='managers/details.html'
 
 #! Comments
-class commentView(ListView):
+class commentView(LoginRequiredMixin,ListView):
    model=Comment
 
-class commentDelete(DeleteView):
+class commentDelete(LoginRequiredMixin,DeleteView):
    model=Comment
 
 #! Profiles
@@ -87,6 +89,6 @@ class memberCreate(CreateView):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class memberDetail(DetailView):
+class memberDetail(LoginRequiredMixin,DetailView):
    model=Member
    template_name='members/details.html'
