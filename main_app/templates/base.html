@@ -6,28 +6,32 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>{% block title %}Home{% endblock title %} | Honest Apartment Testimonies</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
    </head>
    <body>
-      <header>
-         <nav>
-            <ul>
+      <header class="bg-dark p-3">
+         <nav class="d-flex justify-content-between">
+            <a class="text-light" href="{%url 'home'%}"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewbox="0 0 24 24" fill="white" width="35px" height="35px"><g><rect fill="none" height="24" width="24"/></g><g><path d="M17,11V3H7v4H3v14h8v-4h2v4h8V11H17z M7,19H5v-2h2V19z M7,15H5v-2h2V15z M7,11H5V9h2V11z M11,15H9v-2h2V15z M11,11H9V9h2 V11z M11,7H9V5h2V7z M15,15h-2v-2h2V15z M15,11h-2V9h2V11z M15,7h-2V5h2V7z M19,19h-2v-2h2V19z M19,15h-2v-2h2V15z"/></g></svg></a>
             {% if user.is_authenticated %}
-               <li><a href="{%url 'unit_index'%}">View Apartments</a></li>
-               <li><a href="{%url 'manager_index'%}">View Property Managers</a></li>
-               <li>My Profile</li>
-               <li><a href="{%url 'logout'%}?next=/">Log Out</a></li>
+            <a class="text-light" href="{%url 'unit_index'%}">View Apartments</a>
+            <a class="text-light" href="{%url 'manager_index'%}">View Property Managers</a>
+            <a class="text-light" href="{%url 'member_details' user.id %}">My Profile</a>
+            <a class="text-light" href="{%url 'logout'%}?next=/">Log Out</a>
             {% else %}
-               <li><a href="{%url 'register'%}">Register</a></li>
-               <li><a href="{%url 'login'%}">Log In</a></li>
+            <a class="text-light" href="{%url 'register'%}">Register</a>
+            <a class="text-light" href="{%url 'login'%}">Log In</a>
             {% endif %}
-            </ul>
+            <form class="form-inline my-2 my-lg-0">
+               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
          </nav>
       </header>
       <h1>{%block blah %}{% endblock %}</h1>
       {% block content %}
       {% endblock %}
-      <footer class="page-footer">
-         <div class="right">All Rights Reserved, &copy; {% now "Y" %} Honest Apartment Testimonies &nbsp;</div>
+      <footer class="fixed-bottom">
+         <div class="d-flex justify-content-center">All Rights Reserved, &copy; {% now "Y" %} Honest Apartment Testimonies &nbsp;</div>
        </footer>
    </body>
 </html>

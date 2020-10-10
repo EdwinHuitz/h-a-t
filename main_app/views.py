@@ -17,15 +17,15 @@ def about(request):
 
 def unitIndex(request):
    unit = Unit.objects.all()
-   return render(request,'units/index.html',{'unit':unit})
+   return render(request,'units/index.html',{'units':unit})
 
 def managerIndex(request):
    manager = Manager.objects.all()
-   return render(request,'managers/index.html',{'manager':manager})
+   return render(request,'managers/index.html',{'managers':manager})
 
-def profile(request):
-   profile = Profile.objects.all()
-   return render(request,'profiles/details.html',{'profile':profile})
+def memberIndex(request):
+   member = Member.objects.all()
+   return render(request,'members/details.html',{'members':member})
 
 def register(request):
    error_message=''
@@ -34,7 +34,7 @@ def register(request):
       if form.is_valid():
          user=form.save()
          login(request,user)
-         return redirect('unit_index')
+         return redirect('member_create')
       else:
          error_message='Invalid Registration: Try Again'
    form=UserCreationForm()
@@ -79,13 +79,14 @@ class commentDelete(DeleteView):
    model=Comment
 
 #! Profiles
-class profileCreate(CreateView):
-   model=Profile
+class memberCreate(CreateView):
+   model=Member
    fields="__all__"
+   template_name='members/create.html'
    def form_valid(self,form):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class profileDetail(DetailView):
-   model=Profile
-   template_name='profiles/details.html'
+class memberDetail(DetailView):
+   model=Member
+   template_name='members/details.html'

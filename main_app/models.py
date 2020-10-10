@@ -16,7 +16,7 @@ RATINGS=(
    ('5',5)
 )
 # Create your models here. 
-class Profile(models.Model):
+class Member(models.Model):
    name= models.CharField(max_length=100)
    bio=  models.TextField(blank=True)
    email=models.EmailField(max_length=100)
@@ -24,11 +24,11 @@ class Profile(models.Model):
    def __string__(self):
       return self.name
    def get_absolute_url(self):
-      return reverse('profile_details',kwargs={'pk':self.id})
+      return reverse('member_details',kwargs={'pk':self.id})
 
 class PrivateList(models.Model):
    title=   models.CharField(max_length=100)
-   profile= models.ForeignKey(Profile,on_delete=models.CASCADE)
+   profile= models.ForeignKey(Member,on_delete=models.CASCADE)
    def __string__(self):
       return self.name
    def get_absolute_url(self):
@@ -62,7 +62,7 @@ class Comment(models.Model):
    )
    date=       models.DateField(auto_now_add=True)
    content=    models.TextField()
-   user=       models.ForeignKey(Profile,on_delete=models.CASCADE)
+   user=       models.ForeignKey(Member,on_delete=models.CASCADE)
    manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
    unit=       models.ForeignKey(Unit,on_delete=models.CASCADE,)
    privatelist=models.ForeignKey(PrivateList,on_delete=models.CASCADE,)
