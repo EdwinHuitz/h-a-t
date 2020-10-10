@@ -34,7 +34,7 @@ def register(request):
       if form.is_valid():
          user=form.save()
          login(request,user)
-         return redirect('profile_create')
+         return redirect('unit_index')
       else:
          error_message='Invalid Registration: Try Again'
    form=UserCreationForm()
@@ -46,8 +46,8 @@ def register(request):
 #! Units
 class unitCreate(CreateView):
    model=Unit
-   fields='__all__'
-   template_name='units/index.html'
+   fields=['name','address','contact','manager']
+   template_name='units/create.html'
 
 class unitView(ListView):
    model=Unit
@@ -55,12 +55,13 @@ class unitView(ListView):
 
 class unitDetail(DetailView):
    model=Unit
+   template_name='units/details.html'
 
 #! Management
 class managerCreate(CreateView):
    model=Manager
    fields='__all__'
-   template_name='managers/index.html'
+   template_name='managers/create.html'
 
 class managerView(ListView):
    model=Manager
@@ -68,6 +69,7 @@ class managerView(ListView):
 
 class managerDetail(DetailView):
    model=Manager
+   template_name='managers/details.html'
 
 #! Comments
 class commentView(ListView):
@@ -84,6 +86,6 @@ class profileCreate(CreateView):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class profileView(DetailView):
+class profileDetail(DetailView):
    model=Profile
    template_name='profiles/details.html'

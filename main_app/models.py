@@ -32,7 +32,7 @@ class PrivateList(models.Model):
    def __string__(self):
       return self.name
    def get_absolute_url(self):
-      return reverse('list_details',kwargs={'pk':self.id})
+      return reverse('list_details',kwargs={'pl':self.id})
 
 class Manager(models.Model):
    name=    models.CharField(max_length=100)
@@ -46,7 +46,7 @@ class Manager(models.Model):
 class Unit(models.Model):
    name=       models.CharField(max_length=100)
    address=    models.CharField(max_length=100)
-   manager= models.ForeignKey(Manager,on_delete=models.CASCADE,)
+   manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
    privatelist=models.ManyToManyField('PrivateList')
    contact=    models.CharField(max_length=100)
    def __string__(self):
@@ -57,17 +57,16 @@ class Unit(models.Model):
 class Comment(models.Model):
    title=   models.CharField(max_length=100)
    rating=  models.SmallIntegerField(
-      max_length=2,
       choices=RATINGS,
       default=RATINGS[0][0]
    )
    date=       models.DateField(auto_now_add=True)
    content=    models.TextField()
    user=       models.ForeignKey(Profile,on_delete=models.CASCADE)
-   manager= models.ForeignKey(Manager,on_delete=models.CASCADE,)
+   manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
    unit=       models.ForeignKey(Unit,on_delete=models.CASCADE,)
    privatelist=models.ForeignKey(PrivateList,on_delete=models.CASCADE,)
    def __string__(self):
       return self.name
    def get_absolute_url(self):
-      return reverse('comment_details',kwargs={'pk':self.id})
+      return reverse('comment_details',kwargs={'cm':self.id})
