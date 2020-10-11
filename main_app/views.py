@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 
@@ -15,6 +16,7 @@ def home(request):
 
 def about(request):
    return render(request,'about.html')
+
 @login_required
 def unitIndex(request):
    unit = Unit.objects.all()
@@ -28,19 +30,19 @@ def testing(request):
          return redirect('home')
       else:
          error_message=''
-   form=unitForm()
    return render(request,'test/a.html',{'form':form},)
 
-
-# def unitDetail(request,unit_id):
-#    unit=Unit.objects.get(id=unit_id)
-#    manager=Manager.objects.all().values_list('name')
-#    return render(request, 'units/details.html',{'unit':unit})
+@login_required
+def unitDetail(request,unit_id):
+   unit=Unit.objects.get(id=unit_id)
+   listform=listForm()
+   return render(request, 'units/details.html',{'unit':unit,'unitform':listform})
 
 @login_required
 def managerIndex(request):
    manager = Manager.objects.all()
    return render(request,'managers/index.html',{'managers':manager})
+
 @login_required
 def memberIndex(request):
    member = Member.objects.all()
@@ -66,16 +68,16 @@ def register(request):
 
 class unitCreate(LoginRequiredMixin,CreateView):
    model=Unit
-   fields=['name','address','amenities','contact','manager']
+   fields=['name','address','contact','manager']
    template_name='units/create.html'
 
 class unitView(LoginRequiredMixin,ListView):
    model=Unit
    template_name='units/index.html'
-   
-class unitDetail(LoginRequiredMixin,DetailView):
-   model=Unit
-   template_name='units/details.html'
+
+# class unitDetail(LoginRequiredMixin,DetailView):
+#    model=Unit
+#    template_name='units/details.html'
 
 #! Management
 class managerCreate(LoginRequiredMixin,CreateView):
