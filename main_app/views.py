@@ -35,11 +35,22 @@ def testing(request):
 @login_required
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
-   listform=listForm()
-   return render(request, 'units/details.html',{'unit':unit,'unitform':listform,})
+   ammenityform=ammenityForm()
+   commentform=commentForm()
+   return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentForm})
 
+@login_required
+def addComment(request,unit_id):
+   form=commentForm(request.POST)
+   if form.is_valid():
+      newCom=form.save(commit=False)
+      newCom.unit_id=unit_id
+      newCom.save()
+   return redirect('unit_details',unit_id=unit_id)
+
+@login_required
 def addAmenity(request,unit_id):
-   form=listForm(request.POST)
+   form=ammenityForm(request.POST)
    if form.is_valid():
       newAm=form.save(commit=False)
       newAm.unit_id=unit_id

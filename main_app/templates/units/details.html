@@ -2,30 +2,40 @@
 {% block title%}{{unit.name}} Details{% endblock %}
 {% block content %}
 <div class="container">
-   <h1 class="my-4">{{unit.name}}</h1>
-   <div class="row">
-     <div class="col-md-8">
-       <img class="img-fluid" src="http://placehold.it/750x500" alt="">
-     </div>
-     <div class="col-md-4">
-       <h3 class="my-3">Description</h3>
-       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-       <h3 class="my-3">Amenities</h3>
-       <ul>
-         {%for am in unit.amenities_set.all%}
-         <li>{{am.get_name_display}}</li>
-         {%endfor%}
-       </ul>
-       <div class="col s6">
-        <!-- new code below -->
-        <form action="{%url 'add_amenity' unit.id %}" method="post">
-          {% csrf_token %}
-          {{unitform.as_p}}
-          <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">
-        </form>
-      </div>
-      <div class="col-md-4 d-flex flex-align-center">
-        <h1>fafafa</h1>
-     </div>
-   </div>
+  <div class="row">
+    <h1 class="my-4">{{unit.name}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+    </div>
+    <div class="col-md-4">
+      <h3 class="my-3">Description</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna
+        varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu
+        convallis placerat, felis enim.</p>
+      <h3 class="my-3">Amenities</h3>
+      <ul>
+        {%for am in unit.amenities_set.all%}
+        <li>{{am.get_name_display}}</li>
+        {%endfor%}
+      </ul>
+      <form action="{%url 'add_amenity' unit.id %}" method="post">
+        {% csrf_token %}
+        {{ammenityform.as_p}}
+        <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">
+      </form>
+    </div>
+  </div>
+  <div class="row d-flex flex-align-center">
+    <h1>fafafa</h1>
+    <div class="col s6">
+      <form action="{%url 'add_comment' unit.id %}" method="post">
+        {% csrf_token %}
+        {{commentform.as_p}}
+        <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Comment">
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

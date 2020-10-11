@@ -85,7 +85,7 @@ class Comment(models.Model):
    title=   models.CharField(max_length=100)
    rating=  models.SmallIntegerField(
       choices=RATINGS,
-      default=RATINGS[0][0]
+      default=RATINGS[5][0]
    )
    date=       models.DateField(auto_now_add=True)
    content=    models.TextField()
