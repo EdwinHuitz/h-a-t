@@ -15,6 +15,7 @@ RATINGS=(
    ('4',4),
    ('5',5)
 )
+
 # Create your models here. 
 class Member(models.Model):
    name= models.CharField(max_length=100)
@@ -43,11 +44,16 @@ class Manager(models.Model):
    def get_absolute_url(self):
       return reverse('manager_details',kwargs={'pk':self.id})
 
+class Amenities(models.Model):
+   name=models.CharField(max_length=1000)
+   def __string__(self):
+      return self.name
+
 class Unit(models.Model):
    name=       models.CharField(max_length=100)
    address=    models.CharField(max_length=100)
-   amenities= models.CharField(max_length=100)
-   manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
+   amenities=  models.ForeignKey(Amenities,on_delete=models.CASCADE)
+   manager=    models.ForeignKey(Manager,on_delete=models.DO_NOTHING)
    privatelist=models.ManyToManyField('PrivateList')
    contact=    models.CharField(max_length=100)
    def __string__(self):

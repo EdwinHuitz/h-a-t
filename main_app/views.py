@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
-
+from .forms import *
 
 # view functions
 def home(request):
@@ -19,6 +19,24 @@ def about(request):
 def unitIndex(request):
    unit = Unit.objects.all()
    return render(request,'units/index.html',{'units':unit})
+
+def testing(request):
+   error_message=''
+   if request.method == 'POST':
+      form = unitForm(request.POST)
+      if form.is_valid():
+         return redirect('home')
+      else:
+         error_message=''
+   form=unitForm()
+   return render(request,'test/a.html',{'form':form},)
+
+
+# def unitDetail(request,unit_id):
+#    unit=Unit.objects.get(id=unit_id)
+#    manager=Manager.objects.all().values_list('name')
+#    return render(request, 'units/details.html',{'unit':unit})
+
 @login_required
 def managerIndex(request):
    manager = Manager.objects.all()
@@ -26,7 +44,7 @@ def managerIndex(request):
 @login_required
 def memberIndex(request):
    member = Member.objects.all()
-   return render(request,'members/details.html',{'members':member})
+   return render(request,'members/index.html',{'members':member})
 
 def register(request):
    error_message=''
@@ -54,7 +72,7 @@ class unitCreate(LoginRequiredMixin,CreateView):
 class unitView(LoginRequiredMixin,ListView):
    model=Unit
    template_name='units/index.html'
-
+   
 class unitDetail(LoginRequiredMixin,DetailView):
    model=Unit
    template_name='units/details.html'

@@ -14,7 +14,7 @@
 
        <ul>
          {% if unit.amenities %}
-            <li>hello</li>
+            <li>{{unit.amenities.name}}</li>
          {%else%}
             <li>goodbye {{unit.name}}</li>
          {%endif%}
