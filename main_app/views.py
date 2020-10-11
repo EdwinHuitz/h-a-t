@@ -36,7 +36,9 @@ def testing(request):
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
    listform=listForm()
-   return render(request, 'units/details.html',{'unit':unit,'unitform':listform})
+   #amenities_not=Amenities.objects.exclude(id__in=unit.ammenities.all().values_list('id'))
+   #collections_coin_doesnt_have = Collection.objects.exclude(id__in = coin.collections.all().values_list('id'))
+   return render(request, 'units/details.html',{'unit':unit,'unitform':listform,})#'amen_not':amenities_not})
 
 @login_required
 def managerIndex(request):

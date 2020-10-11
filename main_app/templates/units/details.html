@@ -16,9 +16,15 @@
          <li>{{am.name}}</li>
          {%endfor%}
        </ul>
+       <div class="col s6">
+        <!-- new code below -->
+        <form method="post">
+          {% csrf_token %}
+          {{unitform.as_p}}
+          <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">
+        </form>
       </div>
       <div class="col-md-4 d-flex flex-align-center">
-        {{unitform.as_p}}
         <h1>fafafa</h1>
      </div>
    </div>
