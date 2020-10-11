@@ -37,6 +37,9 @@
         {{commentform.as_p}}
         <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Comment">
       </form>
+      {%for co in unit.unitcomment_set.all%}
+      <h1>{{co.get_title_display}}</h1>
+      {%endfor%}
     </div>
   </div>
 </div>

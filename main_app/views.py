@@ -22,16 +22,6 @@ def unitIndex(request):
    unit = Unit.objects.all()
    return render(request,'units/index.html',{'units':unit})
 
-def testing(request):
-   error_message=''
-   if request.method == 'POST':
-      form = unitForm(request.POST)
-      if form.is_valid():
-         return redirect('home')
-      else:
-         error_message=''
-   return render(request,'test/a.html',{'form':form},)
-
 @login_required
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
@@ -40,10 +30,11 @@ def unitDetail(request,unit_id):
    return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentForm})
 
 @login_required
-def addComment(request,unit_id):
+def addUnitComment(request,unit_id):
    form=commentForm(request.POST)
    if form.is_valid():
       newCom=form.save(commit=False)
+      newCom.user_id=request.user.id
       newCom.unit_id=unit_id
       newCom.save()
    return redirect('unit_details',unit_id=unit_id)
@@ -94,10 +85,6 @@ class unitView(LoginRequiredMixin,ListView):
    model=Unit
    template_name='units/index.html'
 
-# class unitDetail(LoginRequiredMixin,DetailView):
-#    model=Unit
-#    template_name='units/details.html'
-
 #! Management
 class managerCreate(LoginRequiredMixin,CreateView):
    model=Manager
@@ -113,11 +100,11 @@ class managerDetail(LoginRequiredMixin,DetailView):
    template_name='managers/details.html'
 
 #! Comments
-class commentView(LoginRequiredMixin,ListView):
-   model=Comment
+class UcommentView(LoginRequiredMixin,ListView):
+   model=UnitComment
 
-class commentDelete(LoginRequiredMixin,DeleteView):
-   model=Comment
+class UcommentDelete(LoginRequiredMixin,DeleteView):
+   model=UnitComment
 
 #! Profiles
 class memberCreate(CreateView):
@@ -132,12 +119,12 @@ class memberDetail(LoginRequiredMixin,DetailView):
    model=Member
    template_name='members/details.html'
 
-class memberEdit(UpdateView):
+class memberEdit(LoginRequiredMixin,UpdateView):
    model=Member
    fields=['name','bio','email']
    template_name='members/edit.html'
 #! Private Lists
-class listCreate(CreateView):
+class listCreate(LoginRequiredMixin,CreateView):
    model=PrivateList
    fields=['title']
    template_name='members/list_create.html'

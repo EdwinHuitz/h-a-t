@@ -3,17 +3,17 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 RATINGS=(
-   ('-5',-5),
-   ('-4',-4),
-   ('-3',-3),
-   ('-2',-2),
-   ('-1',-1),
-   ('0',0),
-   ('1',1),
-   ('2',2,),
-   ('3',3),
-   ('4',4),
-   ('5',5)
+   (0,0),
+   (1,1),
+   (2,2),
+   (3,3),
+   (4,4),
+   (5,5),
+   (6,6),
+   (7,7,),
+   (8,8),
+   (9,9),
+   (10,10)
 )
 AMENITIES=(
    ('ac','Air Conditioning'),
@@ -79,21 +79,50 @@ class Amenities(models.Model):
    unit=models.ForeignKey(Unit,on_delete=models.CASCADE)
 
    def __str__(self):
-      return f"{self.get_name_display()} on {self.name}"
+      return f"{self.get_name_display()}"
 
-class Comment(models.Model):
+class UnitComment(models.Model):
    title=   models.CharField(max_length=100)
    rating=  models.SmallIntegerField(
       choices=RATINGS,
-      default=RATINGS[5][0]
+      default=RATINGS[0][0]
    )
    date=       models.DateField(auto_now_add=True)
    content=    models.TextField()
-   user=       models.ForeignKey(Member,on_delete=models.CASCADE)
-   manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
-   unit=       models.ForeignKey(Unit,on_delete=models.CASCADE,)
-   privatelist=models.ForeignKey(PrivateList,on_delete=models.CASCADE,)
+   user=       models.ForeignKey(User,on_delete=models.CASCADE)
+   unit=       models.ForeignKey(Unit,on_delete=models.CASCADE)
    def __str__(self):
       return self.title
    def get_absolute_url(self):
       return reverse('comment_details',kwargs={'cm':self.id})
+
+class ManagerComment(models.Model):
+   title=   models.CharField(max_length=100)
+   rating=  models.SmallIntegerField(
+      choices=RATINGS,
+      default=RATINGS[0][0]
+   )
+   date=       models.DateField(auto_now_add=True)
+   content=    models.TextField()
+   user=       models.ForeignKey(User,on_delete=models.CASCADE)
+   manager=    models.ForeignKey(Manager,on_delete=models.CASCADE)
+   def __str__(self):
+      return self.title
+   def get_absolute_url(self):
+      return reverse('comment_details',kwargs={'cm':self.id})
+
+class ListComment(models.Model):
+   title=   models.CharField(max_length=100)
+   rating=  models.SmallIntegerField(
+      choices=RATINGS,
+      default=RATINGS[0][0]
+   )
+   date=       models.DateField(auto_now_add=True)
+   content=    models.TextField()
+   user=       models.ForeignKey(User,on_delete=models.CASCADE)
+   privatelist=models.ForeignKey(PrivateList,on_delete=models.CASCADE)
+   def __str__(self):
+      return self.title
+   def get_absolute_url(self):
+      return reverse('comment_details',kwargs={'cm':self.id})
+

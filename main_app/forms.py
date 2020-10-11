@@ -8,5 +8,5 @@ class ammenityForm(ModelForm):
 
 class commentForm(ModelForm):
    class Meta:
-      model=Comment
+      model=UnitComment
       fields=['title','rating','content']
