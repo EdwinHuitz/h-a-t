@@ -48,7 +48,7 @@ def register(request):
 
 class unitCreate(LoginRequiredMixin,CreateView):
    model=Unit
-   fields=['name','address','contact','manager']
+   fields=['name','address','amenities','contact','manager']
    template_name='units/create.html'
 
 class unitView(LoginRequiredMixin,ListView):
@@ -83,7 +83,7 @@ class commentDelete(LoginRequiredMixin,DeleteView):
 #! Profiles
 class memberCreate(CreateView):
    model=Member
-   fields="__all__"
+   fields=['name','bio','email']
    template_name='members/create.html'
    def form_valid(self,form):
       form.instance.user = self.request.user
@@ -92,3 +92,13 @@ class memberCreate(CreateView):
 class memberDetail(LoginRequiredMixin,DetailView):
    model=Member
    template_name='members/details.html'
+
+class memberEdit(UpdateView):
+   model=Member
+   fields=['name','bio','email']
+   template_name='members/edit.html'
+#! Private Lists
+class listCreate(CreateView):
+   model=PrivateList
+   fields=['title']
+   template_name='members/list_create.html'

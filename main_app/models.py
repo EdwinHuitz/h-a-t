@@ -30,7 +30,7 @@ class PrivateList(models.Model):
    title=   models.CharField(max_length=100)
    profile= models.ForeignKey(Member,on_delete=models.CASCADE)
    def __string__(self):
-      return self.name
+      return self.title
    def get_absolute_url(self):
       return reverse('list_details',kwargs={'pl':self.id})
 
@@ -46,6 +46,7 @@ class Manager(models.Model):
 class Unit(models.Model):
    name=       models.CharField(max_length=100)
    address=    models.CharField(max_length=100)
+   amenities= models.CharField(max_length=100)
    manager=    models.ForeignKey(Manager,on_delete=models.CASCADE,)
    privatelist=models.ManyToManyField('PrivateList')
    contact=    models.CharField(max_length=100)
@@ -67,6 +68,6 @@ class Comment(models.Model):
    unit=       models.ForeignKey(Unit,on_delete=models.CASCADE,)
    privatelist=models.ForeignKey(PrivateList,on_delete=models.CASCADE,)
    def __string__(self):
-      return self.name
+      return self.title
    def get_absolute_url(self):
       return reverse('comment_details',kwargs={'cm':self.id})

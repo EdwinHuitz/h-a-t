@@ -12,5 +12,7 @@ urlpatterns = [
    path('managers/create/',views.managerCreate.as_view(),name='manager_create'),
    path('members/<int:pk>/',views.memberDetail.as_view(),name='member_details'),
    path('members/create/',views.memberCreate.as_view(),name='member_create'),
+   path('members/<int:pk>/edit/',views.memberEdit.as_view(),name='member_edit'),
+   path('members/list/create/',views.listCreate.as_view(),name='list_create'),
    path('accounts/register/',views.register,name='register'),
 ]
