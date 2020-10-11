@@ -9,7 +9,7 @@
 <form method="post" action="{% url 'register' %}">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="register">
+  <input type="submit" class="btn btn-success my-2 my-sm-0" value="register">
 </form>
 
 {% endblock %}
