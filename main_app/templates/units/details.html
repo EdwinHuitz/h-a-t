@@ -13,12 +13,12 @@
        <h3 class="my-3">Amenities</h3>
        <ul>
          {%for am in unit.amenities_set.all%}
-         <li>{{am.name}}</li>
+         <li>{{am.get_name_display}}</li>
          {%endfor%}
        </ul>
        <div class="col s6">
         <!-- new code below -->
-        <form method="post">
+        <form action="{%url 'add_amenity' unit.id %}" method="post">
           {% csrf_token %}
           {{unitform.as_p}}
           <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">

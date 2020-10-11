@@ -76,9 +76,10 @@ class Amenities(models.Model):
       choices=AMENITIES,
       default=AMENITIES[0][0]
    )
-   unit=models.ForeignKey(Unit,on_delete=models.DO_NOTHING)
+   unit=models.ForeignKey(Unit,on_delete=models.CASCADE)
+
    def __str__(self):
-      return f"{self.get_name_display()}"
+      return f"{self.get_name_display()} on {self.name}"
 
 class Comment(models.Model):
    title=   models.CharField(max_length=100)
