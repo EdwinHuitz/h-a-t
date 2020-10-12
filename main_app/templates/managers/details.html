@@ -30,45 +30,53 @@
         {{commentform.as_p}}
         <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Comment">
       </form><br/><hr/>
-      {%for co in manager.managercomment_set.all%}
+      {%for m in manager.managercomment_set.all%}
       <div class="row">
         <div class="col align-self-center">
+         {%if user == m.user %}
+         <div class="col-md-6">
+           <form action="{%url 'delete_mcomment' manager.id m.id %}" method="post">
+             {% csrf_token %}
+             <input type="submit" class="btn text-dark" value="Delete">
+           </form>
+         </div>
+         {%endif%}
           <div style="text-align: center;">
-            <h3>{{co.title}}</h3>
-            {%if co.rating == 1%}
+            <h3>{{m.title}}</h3>
+            {%if m.rating == 1%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
-            {%elif co.rating == 2%}
+            {%elif m.rating == 2%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
-            {%elif co.rating == 3%}
+            {%elif m.rating == 3%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
-            {%elif co.rating == 4%}
+            {%elif m.rating == 4%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star"></span>
-            {%elif co.rating == 5%}
+            {%elif m.rating == 5%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star yes"></span>
             {%endif%}
-            {{co.date}}
+            {{m.date}}
           </div>
-          <p>{{co.content}}</p>
+          <p>{{m.content}}</p>
         </div>
       </div>  
       {%endfor%}

@@ -123,7 +123,7 @@ class McommentView(LoginRequiredMixin,ListView):
 
 class McommentDelete(LoginRequiredMixin,DeleteView):
    model=ManagerComment
-   
+   success_url='/managers/'
 
 #! Profiles
 class memberCreate(CreateView):
