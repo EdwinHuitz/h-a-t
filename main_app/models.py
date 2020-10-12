@@ -126,3 +126,20 @@ class ListComment(models.Model):
    def get_absolute_url(self):
       return reverse('comment_ldetails',kwargs={'pk':self.id})
 
+class UnitPhoto(models.Model):
+   url = models.CharField(max_length=200)
+   unit = models.ForeignKey(Unit,on_delete=models.CASCADE)
+   def __str__(self):
+      return f"unit photo for {self.unit_id}@{self.url}"
+
+class ManagerPhoto(models.Model):
+   url = models.CharField(max_length=200)
+   manager = models.ForeignKey(Manager,on_delete=models.CASCADE)
+   def __str__(self):
+      return f"unit photo for {self.manager_id}"
+
+class ProfilePhoto(models.Model):
+   url = models.CharField(max_length=200)
+   member = models.ForeignKey(Member,on_delete=models.CASCADE)
+   def __str__(self):
+      return f"member photo for {self.member_id}"

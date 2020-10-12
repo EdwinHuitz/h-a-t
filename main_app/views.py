@@ -6,9 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+import uuid
+import boto3
 from .models import *
 from .forms import *
-
+S3_BASE_URL='https://s3.us-east-1.amazonaws.com/'
+BUCKET='catterday'
 # view functions
 def home(request):
    unit = Unit.objects.all()
@@ -73,6 +76,28 @@ def addManagerComment(request,mg_id):
 def memberIndex(request):
    member = Member.objects.all()
    return render(request,'members/index.html',{'members':member})
+@login_required
+def addUnitPhoto(request,unit_id):
+   unitpic = request.FILES.get('photo-file',None)
+   if unitpic:
+      s3=boto3.client('s3')
+      key=uuid.uuid4().hex[:6]+unitpic.name[unitpic.name.rfind('.'):]
+      try:
+         s3.upload_fileobj(unitpic,BUCKET,key)
+         url=f"{S3_BASE_URL}{BUCKET}/{key}"
+         photo = UnitPhoto(url=url,unit_id=unit_id)
+         photo.save()
+      except:
+         print('An error occured uploading your photo')
+   return redirect('unit_details',unit_id=unit_id)
+
+@login_required
+def addManagerPhoto():
+   pass
+
+@login_required
+def addMemberPhoto():
+   pass
 
 def register(request):
    error_message=''
@@ -87,6 +112,7 @@ def register(request):
    form=UserCreationForm()
    context={'form':form,'error_message':error_message}
    return render(request,'registration/register.html',context)
+
 
 
 # classes
