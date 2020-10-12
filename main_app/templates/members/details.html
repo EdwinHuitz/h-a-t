@@ -5,8 +5,18 @@
    <div class="row">
       <div class="col-md-4">
          <div class="profile-img">
-               <img src="http://placehold.it/750x500" alt=""/>
-               
+            {%if member.url == 0 %}
+            <img src="{{member.url}}">
+            {%else%}
+            <img src="http://placehold.it/750x500" alt="">
+            {%endif%}
+            <div class="file btn btn-lg btn-primary">
+            <form action="{% url 'add_memphoto' user.id %}" enctype="multipart/form-data" method="POST">
+               Change Photo
+                  {% csrf_token %}
+                  <input type="file" onchange="form.submit()" name="photo-file">
+               </form>
+            </div>
          </div>
       </div>
       <div class="col-md-6">

@@ -92,12 +92,34 @@ def addUnitPhoto(request,unit_id):
    return redirect('unit_details',unit_id=unit_id)
 
 @login_required
-def addManagerPhoto():
-   pass
+def addManagerPhoto(request,mg_id):
+   mgpic = request.FILES.get('photo-file',None)
+   if mgpic:
+      s3=boto3.client('s3')
+      key=uuid.uuid4().hex[:6]+mgpic.name[mgpic.name.rfind('.'):]
+      try:
+         s3.upload_fileobj(mgpic,BUCKET,key)
+         url=f"{S3_BASE_URL}{BUCKET}/{key}"
+         photo = ManagerPhoto(url=url,manager_id=mg_id)
+         photo.save()
+      except:
+         print('An error occured uploading your photo')
+   return redirect('manager_details',mg_id=mg_id)
 
 @login_required
-def addMemberPhoto():
-   pass
+def addMemberPhoto(request,member):
+   memberpic = request.FILES.get('photo-file',None)
+   if memberpic:
+      s3=boto3.client('s3')
+      key=uuid.uuid4().hex[:6]+memberpic.name[memberpic.name.rfind('.'):]
+      try:
+         s3.upload_fileobj(memberpic,BUCKET,key)
+         url=f"{S3_BASE_URL}{BUCKET}/{key}"
+         photo = Member(url=url,member_id=member)
+         photo.save()
+      except:
+         print('An error occured uploading your photo')
+   return redirect('member_details',pk=member)
 
 def register(request):
    error_message=''

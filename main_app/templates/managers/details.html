@@ -9,7 +9,19 @@
   </div>
   <div class="row d-flex flex-align-center">
     <div class="col-md-8">
+      {%if manager.managerphoto_set.count %}
+      {%for photo in manager.managerphoto_set.all%}
+      <img src="{{photo.url}}">
+      {%endfor%}
+      {%else%}
       <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+      {%endif%}
+      <form action="{% url 'add_mphoto' manager.id %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn btn-dark" value="Upload Photo">
+      </form>
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Description</h3>
