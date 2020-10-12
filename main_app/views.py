@@ -25,6 +25,7 @@ def unitIndex(request):
 @login_required
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
+   #comment=Comment.object.get(id=)
    ammenityform=ammenityForm()
    commentform=commentForm()
    return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentForm})

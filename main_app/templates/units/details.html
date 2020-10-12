@@ -13,9 +13,7 @@
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Description</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna
-        varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu
-        convallis placerat, felis enim.</p>
+      <p>{%lorem%}</p>
       <h3 class="my-3">Amenities</h3>
       <ul>
         {%for am in unit.amenities_set.all%}
@@ -28,7 +26,7 @@
         <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">
       </form>
     </div>
-  </div>
+  </div><hr/>
   <div class="row" style="text-align:center;">
     <div class="col align-self-center">
       <h1>Comments</h1>
@@ -36,9 +34,48 @@
         {% csrf_token %}
         {{commentform.as_p}}
         <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Comment">
-      </form>
+      </form><br/><hr/>
       {%for co in unit.unitcomment_set.all%}
-      <h1>{{co.get_title_display}}</h1>
+      <div class="row">
+        <div class="col align-self-center">
+          <div style="text-align: center;">
+            <h3>{{co.title}}</h3>
+            {%if co.rating == 1%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 2%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 3%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 4%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 5%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            {%endif%}
+            {{co.date}}
+          </div>
+          <p>{{co.content}}</p>
+        </div>
+      </div>  
       {%endfor%}
     </div>
   </div>
