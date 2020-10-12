@@ -6,8 +6,13 @@ class ammenityForm(ModelForm):
       model=Amenities
       fields=['name']
 
-class commentForm(ModelForm):
+class ucommentForm(ModelForm):
    class Meta:
       model=UnitComment
+      fields=['title','rating','content']
+      #title=
+class mcommentForm(ModelForm):
+   class Meta:
+      model=ManagerComment
       fields=['title','rating','content']
       #title=

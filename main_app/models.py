@@ -88,7 +88,7 @@ class UnitComment(models.Model):
    def __str__(self):
       return self.title
    def get_absolute_url(self):
-      return reverse('comment_details',kwargs={'cm':self.id})
+      return reverse('comment_udetails',kwargs={'cm':self.id})
 
 class ManagerComment(models.Model):
    title=   models.CharField(max_length=100)
@@ -103,7 +103,7 @@ class ManagerComment(models.Model):
    def __str__(self):
       return self.title
    def get_absolute_url(self):
-      return reverse('comment_details',kwargs={'cm':self.id})
+      return reverse('comment_mdetails',kwargs={'cm':self.id})
 
 class ListComment(models.Model):
    title=   models.CharField(max_length=100)
@@ -118,5 +118,5 @@ class ListComment(models.Model):
    def __str__(self):
       return self.title
    def get_absolute_url(self):
-      return reverse('comment_details',kwargs={'cm':self.id})
+      return reverse('comment_ldetails',kwargs={'cm':self.id})
 

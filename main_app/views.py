@@ -26,12 +26,12 @@ def unitIndex(request):
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
    ammenityform=ammenityForm()
-   commentform=commentForm()
-   return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentForm})
+   commentform=ucommentForm()
+   return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentform})
 
 @login_required
 def addUnitComment(request,unit_id):
-   form=commentForm(request.POST)
+   form=ucommentForm(request.POST)
    if form.is_valid():
       newCom=form.save(commit=False)
       newCom.user_id=request.user.id
@@ -56,12 +56,12 @@ def managerIndex(request):
 @login_required
 def managerDetail(request,mg_id):
    manager=Manager.objects.get(id=mg_id)
-   commentform=commentForm()
-   return render(request, 'managers/details.html',{'manager':manager,'commentform':commentForm})
+   commentform=mcommentForm()
+   return render(request, 'managers/details.html',{'manager':manager,'commentform':commentform})
 
 @login_required
 def addManagerComment(request,mg_id):
-   form=commentForm(request.POST)
+   form=mcommentForm(request.POST)
    if form.is_valid():
       newCom=form.save(commit=False)
       newCom.user_id=request.user.id
