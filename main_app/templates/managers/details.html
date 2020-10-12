@@ -1,4 +1,83 @@
 {% extends 'base.html' %}
-{% block title%}Details{% endblock %}
+{% block title%}{{manager.name}} Details{% endblock %}
 {% block content %}
+<div class="container">
+  <div class="row" style="text-align:center;">
+    <div class="col align-self-center">
+      <h1 class="my-4">{{unit.name}}</h1>
+    </div>
+  </div>
+  <div class="row d-flex flex-align-center">
+    <div class="col-md-8">
+      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+    </div>
+    <div class="col-md-4">
+      <h3 class="my-3">Description</h3>
+      <p>{%lorem%}</p>
+      <h3 class="my-3">Amenities</h3>
+      <ul>
+        {%for am in unit.amenities_set.all%}
+        <li>{{am.get_name_display}}</li>
+        {%endfor%}
+      </ul>
+      <form action="{%url 'add_amenity' unit.id %}" method="post">
+        {% csrf_token %}
+        {{ammenityform.as_p}}
+        <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Ammenity">
+      </form>
+    </div>
+  </div><hr/>
+  <div class="row" style="text-align:center;">
+    <div class="col align-self-center">
+      <h1>Comments</h1>
+      <form action="{%url 'add_comment' unit.id %}" method="post">
+        {% csrf_token %}
+        {{commentform.as_p}}
+        <input type="submit" class="btn btn-success my-2 my-sm-0" value="Add Comment">
+      </form><br/><hr/>
+      {%for co in unit.unitcomment_set.all%}
+      <div class="row">
+        <div class="col align-self-center">
+          <div style="text-align: center;">
+            <h3>{{co.title}}</h3>
+            {%if co.rating == 1%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 2%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 3%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 4%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star"></span>
+            {%elif co.rating == 5%}
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            <span class="fa fa-star yes"></span>
+            {%endif%}
+            {{co.date}}
+          </div>
+          <p>{{co.content}}</p>
+        </div>
+      </div>  
+      {%endfor%}
+    </div>
+  </div>
+</div>
 {% endblock %}

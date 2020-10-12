@@ -51,7 +51,7 @@ class Manager(models.Model):
    def __str__(self):
       return self.name
    def get_absolute_url(self):
-      return reverse('manager_details',kwargs={'pk':self.id})
+      return reverse('manager_details',kwargs={'mg_id':self.id})
 
 class Unit(models.Model):
    name=       models.CharField(max_length=100)

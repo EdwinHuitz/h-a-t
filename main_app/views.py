@@ -25,7 +25,6 @@ def unitIndex(request):
 @login_required
 def unitDetail(request,unit_id):
    unit=Unit.objects.get(id=unit_id)
-   #comment=Comment.object.get(id=)
    ammenityform=ammenityForm()
    commentform=commentForm()
    return render(request, 'units/details.html',{'unit':unit,'ammenityform':ammenityform,'commentform':commentForm})
@@ -53,6 +52,22 @@ def addAmenity(request,unit_id):
 def managerIndex(request):
    manager = Manager.objects.all()
    return render(request,'managers/index.html',{'managers':manager})
+
+@login_required
+def managerDetail(request,mg_id):
+   manager=Manager.objects.get(id=mg_id)
+   commentform=commentForm()
+   return render(request, 'managers/details.html',{'manager':manager,'commentform':commentForm})
+
+@login_required
+def addManagerComment(request,mg_id):
+   form=commentForm(request.POST)
+   if form.is_valid():
+      newCom=form.save(commit=False)
+      newCom.user_id=request.user.id
+      newCom.manager_id=mg_id
+      newCom.save()
+   return redirect('manager_details',mg_id=mg_id)
 
 @login_required
 def memberIndex(request):
@@ -96,16 +111,18 @@ class managerView(LoginRequiredMixin,ListView):
    model=Manager
    template_name='managers/index.html'
 
-class managerDetail(LoginRequiredMixin,DetailView):
-   model=Manager
-   template_name='managers/details.html'
-
 #! Comments
 class UcommentView(LoginRequiredMixin,ListView):
    model=UnitComment
 
 class UcommentDelete(LoginRequiredMixin,DeleteView):
    model=UnitComment
+
+class McommentView(LoginRequiredMixin,ListView):
+   model=ManagerComment
+
+class McommentDelete(LoginRequiredMixin,DeleteView):
+   model=ManagerComment
 
 #! Profiles
 class memberCreate(CreateView):
