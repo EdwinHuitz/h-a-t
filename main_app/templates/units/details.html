@@ -38,8 +38,17 @@
       {%for co in unit.unitcomment_set.all%}
       <div class="row">
         <div class="col align-self-center">
+          {%if user == co.user %}
+          <div class="col-md-6">
+            <form action="{%url 'delete_ucomment' unit.id co.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" class="btn text-dark" value="Delete">
+            </form>
+          </div>
+          {%endif%}
           <div style="text-align: center;">
             <h3>{{co.title}}</h3>
+            {{co.user}}
             {%if co.rating == 1%}
             <span class="fa fa-star yes"></span>
             <span class="fa fa-star"></span>

@@ -117,12 +117,13 @@ class UcommentView(LoginRequiredMixin,ListView):
 
 class UcommentDelete(LoginRequiredMixin,DeleteView):
    model=UnitComment
-
+   success_url='/units/'
 class McommentView(LoginRequiredMixin,ListView):
    model=ManagerComment
 
 class McommentDelete(LoginRequiredMixin,DeleteView):
    model=ManagerComment
+   
 
 #! Profiles
 class memberCreate(CreateView):
