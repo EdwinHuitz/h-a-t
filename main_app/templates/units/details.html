@@ -16,12 +16,11 @@
       {%else%}
       <img class="img-fluid" src="http://placehold.it/750x500" alt="">
       {%endif%}
-      <form action="{% url 'add_uphoto' unit.id %}" enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
-        <input type="file" name="photo-file">
-        <br><br>
-        <input type="submit" class="btn btn-dark" value="Upload Photo">
-      </form>
+        <form action="{% url 'add_uphoto' unit.id %}" enctype="multipart/form-data" method="POST">
+          <label class="btn btn-sm btn-success" style="margin-top: 10px;" for="upload">Add Photo</label>
+          {% csrf_token %}
+          <input id="upload" class="d-flex" type="file" style="opacity: 0;" onchange="form.submit()" name="photo-file">
+        </form>
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Description</h3>
