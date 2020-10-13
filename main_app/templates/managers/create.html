@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block title%}Add a Management Company{% endblock %}
 {% block content %}
-<form action="" method="post">
-   {% csrf_token %}
-   <table>
-      {{form.as_table}}
-   </table>
-   <input type="submit" value="Submit" class="btn btn-success my-2 my-sm-0">
+<br/><h1 style="text-align:center">Add a Property Manager</h1><br/>
+<div class="d-flex justify-content-center">
+<form class="text-center" style="width:50%;" method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success btn-block" type="submit" value="submit">Create</button>
 </form>
+</div>
+<script>
+  document.getElementById('id_name').className="form-control mb-4"
+  document.getElementById('id_address').className="form-control mb-4"
+  document.getElementById('id_contact').className="form-control mb-4"
+</script>
 {% endblock %}
