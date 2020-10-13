@@ -131,14 +131,6 @@ def addMemberPhoto(request,member):
 #    return redirect('list_details',pl=list_id)
 
 def register(request):
-   form=registerForm(request.POST)
-   if form.is_valid():
-      newCom=form.save(commit=False)
-      newCom.user_id=request.user.id
-      newCom.manager_id=mg_id
-      newCom.save()
-   return redirect('manager_details',mg_id=mg_id)
-
    error_message=''
    if request.method == 'POST':
       form=UserCreationForm(request.POST)
@@ -151,8 +143,6 @@ def register(request):
    form=UserCreationForm()
    context={'form':form,'error_message':error_message}
    return render(request,'registration/register.html',context)
-
-
 
 # classes
 #! Units

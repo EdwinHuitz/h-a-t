@@ -2,14 +2,18 @@
 {% block title %}Register{%endblock%}
 {% block content %}
 
-<h1>Sign Up</h1>
+<br/><h1 style="text-align:center">Sign Up</h1><br/>
 <div class="d-flex justify-content-center">
 {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
 <form class="text-center" style="width:50%;" method="post" action="{% url 'register' %}">
   {% csrf_token %}
-  <input type="text" class="form-control mb-4" placeholder="Username">
-  <input type="password" class="form-control mb-4" value="password">
-  <button class="btn btn-success btn-block" type="submit" value="register">Sign in</button>
+  {{ form.as_p }}
+  <button class="btn btn-success btn-block" type="submit" value="register">Register</button>
 </form>
 </div>
+<script>
+  document.getElementById('id_username').className="form-control mb-4"
+  document.getElementById('id_password1').className="form-control mb-4"
+  document.getElementById('id_password2').className="form-control mb-4"
+</script>
 {% endblock %}
