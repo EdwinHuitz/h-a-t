@@ -15,3 +15,13 @@ class mcommentForm(ModelForm):
    class Meta:
       model=ManagerComment
       fields=['title','rating','content']
+
+class registerForm(ModelForm):
+   class Meta:
+      model=User
+      fields=['username','password']
+
+# class listForm(ModelForm):
+#    class Meta:
+#       model=PrivateList
+#       fields='__all__'

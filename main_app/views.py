@@ -76,6 +76,7 @@ def addManagerComment(request,mg_id):
 def memberIndex(request):
    member = Member.objects.all()
    return render(request,'members/index.html',{'members':member})
+
 @login_required
 def addUnitPhoto(request,unit_id):
    unitpic = request.FILES.get('photo-file',None)
@@ -120,8 +121,24 @@ def addMemberPhoto(request,member):
       except:
          print('An error occured uploading your photo')
    return redirect('member_details',pk=member)
+   
+# def listCreate(request,list_id):
+#    form=listForm(request.POST)
+#    if form.is_valid():
+#       newList=form.save(commit=False)
+#       newList.user_id=request.user.id
+#       newList.save()
+#    return redirect('list_details',pl=list_id)
 
 def register(request):
+   form=registerForm(request.POST)
+   if form.is_valid():
+      newCom=form.save(commit=False)
+      newCom.user_id=request.user.id
+      newCom.manager_id=mg_id
+      newCom.save()
+   return redirect('manager_details',mg_id=mg_id)
+
    error_message=''
    if request.method == 'POST':
       form=UserCreationForm(request.POST)
@@ -190,8 +207,7 @@ class memberEdit(LoginRequiredMixin,UpdateView):
    model=Member
    fields=['name','bio','email']
    template_name='members/edit.html'
-#! Private Lists
-class listCreate(LoginRequiredMixin,CreateView):
-   model=PrivateList
-   fields=['title']
-   template_name='members/list_create.html'
+
+# class listDetail(LoginRequiredMixin,DetailView):
+#    model=PrivateList
+#    template_name='members/list_view.html'

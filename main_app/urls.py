@@ -26,6 +26,7 @@ urlpatterns = [
    path('members/<int:pk>/edit/',views.memberEdit.as_view(),name='member_edit'),
    path('members/<int:pk>/photo/',views.addMemberPhoto,name='add_memphoto'),
    #! Other
-   path('members/list/create/',views.listCreate.as_view(),name='list_create'),
+   # path('members/<int:pk>/list/create/',views.listCreate,name='list_create'),
+   # path('members/<int:pk>/list/view/',views.ListView.as_view(),name='list_view'),
    path('accounts/register/',views.register,name='register'),
 ]
