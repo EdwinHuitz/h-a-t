@@ -64,6 +64,49 @@
              </div>
              <br/>  
             {%endfor%}
+            {%for m in user.managercomment_set.all%}
+            <div class="row">
+               <div class="col align-self-center">
+                 <div style="text-align: center;border:solid;border-color:silver;">
+                   <h3><a href="/managers/{{m.manager.id}}/">{{m.manager.name}}</a></h3><hr/><h5>{{m.title}}</h5>
+                   {%if m.rating == 1%}
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   {%elif m.rating == 2%}
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   {%elif m.rating == 3%}
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   {%elif m.rating == 4%}
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star"></span>
+                   {%elif m.rating == 5%}
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   <span class="fa fa-star yes"></span>
+                   {%endif%}
+                   {{m.date}}
+                   <p>{{m.content}}</p>
+                  </div>
+               </div>
+             </div>
+             <br/>  
+            {%endfor%}
       </div>
    </div>         
 </div>
