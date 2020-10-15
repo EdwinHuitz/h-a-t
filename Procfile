@@ -1,1 +1,1 @@
-web: honest_apartment_testimonies.wsgi
+web: gunicorn honest_apartment_testimonies.wsgi
