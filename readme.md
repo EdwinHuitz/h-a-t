@@ -1,6 +1,6 @@
 <span style="text-align:center">
 
-# Endless Hunger
+# Honest Apartment Testimonies
 
 ## Description
 This is a website which is meant to be used by current and former tenants to report on quality of life of the apartment building they've lived in and review the property manager's performance in relation to maintence and pest control
