@@ -29,10 +29,12 @@
             </form> -->
          </nav>
       </header>
+      <main class="container">
       {% block content %}
       {% endblock %}
+      </main>
       <footer class="footer">
-         <div class="d-flex justify-content-center text-light"><p>All Rights Reserved, &copy; {% now "Y" %} Honest Apartment Testimonies &nbsp;</p></div>
+         <div class="container d-flex justify-content-center"><span class="text-light"><p>All Rights Reserved, &copy; {% now "Y" %} Honest Apartment Testimonies &nbsp;</p></span></div>
       </footer>
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

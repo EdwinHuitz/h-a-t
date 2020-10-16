@@ -11,7 +11,7 @@
     <div class="col-md-8">
       {%if unit.unitphoto_set.count %}
       {%for photo in unit.unitphoto_set.all%}
-      <img src="{{photo.url}}" width="750" height="500">
+      <img src="{{photo.url}}" width="700" height="450">
       {%endfor%}
       {%else%}
       <img class="img-fluid" src="http://placehold.it/750x500" alt="">
