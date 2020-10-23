@@ -3,9 +3,9 @@
 {% block content %}
 <br/>
 <span style="width:100vw;"><a href="{%url 'manager_create' %}" class="btn btn-primary">Add New Property Manager</a></span>
-<div style="margin-top:1.5rem;display:flex;flex-flow:row;flex-wrap:wrap;justify-content:space-around;">
+<div style="margin-top:1.5rem;display:flex;flex-flow:row;flex-wrap:wrap;align-content:space-around;justify-content:space-between;">
 {%for manager in managers%}
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 18rem;margin-bottom:5%;">
   <div>
     {%if manager.managerphoto_set.count %}
     <img class="card-img-top" src="{{manager.managerphoto_set.all.0.url}}" width="350" height="200" alt="Photo goes here">

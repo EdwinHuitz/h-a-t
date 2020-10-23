@@ -2,9 +2,9 @@
 {% block title%}Home{% endblock %}
 {% block content %}
 <br/><br/>
-<div style="margin-top:1.5rem;display:flex;flex-flow:row;flex-wrap:wrap;justify-content:space-around;">
+<div style="margin-top:1.5rem;display:flex;flex-flow:row;flex-wrap:wrap;align-content:space-around;justify-content:space-between;">
 {%for unit in units%}
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 18rem;margin-bottom:5%;">
   <div>
     {%if unit.unitphoto_set.count %}
       <img class="card-img-top" src="{{unit.unitphoto_set.all.0.url}}" width="350" height="200" alt="Photo goes here">
