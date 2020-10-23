@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block title%}Home{% endblock %}
 {% block content %}
-<h1 style="color:white;text-shadow:0px 0px 4px black;display:flex;text-align:center;justify-content:center">Demo Account Credentials<br/>Username: demo<br/>Password: abc123</h1><br/><br/>
+{% if user.is_authenticated == 0 %}
+<h1 style="color:white;text-shadow:0px 0px 4px black;display:flex;text-align:center;justify-content:center">Demo Account Credentials<br/>Username: demo<br/>Password: abc123</h1><br/><br/>{%else%}<br/><br/>{%endif%}
 <div style="margin-top:1.5rem;display:flex;flex-flow:row;flex-wrap:wrap;align-content:space-around;justify-content:space-between;">
 {%for unit in units%}
 <div class="card" style="width: 18rem;margin-bottom:5%;">
