@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title%}Edit my Profile{% endblock %}
 {% block content %}
+{% if user.id == member.id %}
 <br/><h1 style="text-align:center">Edit Profile</h1><br/>
 <div class="d-flex justify-content-center">
 <form class="text-center" style="width:50%;" method="post" action="">
@@ -14,4 +15,7 @@
   document.getElementById('id_bio').className="form-control mb-4"
   document.getElementById('id_email').className="form-control mb-4"
 </script>
+{%else%}
+<h1 style="text-align:center;color:white;text-shadow: red 0px 0px 5px;">403 Error:<br/> You cannot edit another user's profile</h1>
+{%endif%}
 {% endblock %}

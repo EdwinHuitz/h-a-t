@@ -18,7 +18,9 @@
    </div>
    <div class="col-md-12 d-flex justify-content-center text-center">
       <div class="col-md-6">
+         {% if user.id == member.id %}
          <h6><a class="text-dark" href="{%url 'member_edit' member.id %}">Edit Profile</a></h6>
+         {%endif%}
          <hr/><br/>
             <h1>My Comments</h1><br/>
             {%for cm in user.unitcomment_set.all%}
